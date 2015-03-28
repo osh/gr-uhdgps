@@ -31,6 +31,8 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     gps_probe.py
+    meta_to_json_file.py
+    cpdu_average_power.py
     __init__.py
     DESTINATION ${GR_PYTHON_DIR}/uhdgps
 )

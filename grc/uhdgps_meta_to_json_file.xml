@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<block>
+  <name>PDU Meta to JSON File</name>
+  <key>uhdgps_meta_to_json_file</key>
+  <category>uhdgps</category>
+  <import>import uhdgps</import>
+  <make>uhdgps.meta_to_json_file($filename)</make>
+
+   <param>
+    <name>Filename</name>
+    <key>filename</key>
+    <value>/tmp/pdus_%(hostname)s_%(time)s.json</value>
+    <type>string</type>
+  </param>
+
+  <sink>
+    <name>pdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+</block>

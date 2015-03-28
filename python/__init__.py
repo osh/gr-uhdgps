@@ -41,6 +41,8 @@ if _RTLD_GLOBAL != 0:
 # ----------------------------------------------------------------
 
 from gps_probe import *
+from meta_to_json_file import *
+from cpdu_average_power import *
 
 # import swig generated symbols into the uhdgps namespace
 try:

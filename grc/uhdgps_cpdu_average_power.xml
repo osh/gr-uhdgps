@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<block>
+  <name>CPDU Average Power</name>
+  <key>uhdgps_cpdu_average_power</key>
+  <category>uhdgps</category>
+  <import>import uhdgps</import>
+  <make>uhdgps.cpdu_average_power($k)</make>
+
+   <param>
+    <name>k (offset dB)</name>
+    <key>k</key>
+    <value>-100</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>cpdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+  
+  <source>
+    <name>cpdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+</block>
