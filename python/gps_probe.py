@@ -20,16 +20,22 @@ class gps_probe(gr.sync_block):
         assert(False)
 
     def handler(self, pdu):
-        uhd_source = eval("self.parent.%s"%(self.target));
-#        print dir(uhd_source)
-        # grab all mboard sensor data
-        mbs = uhd_source.get_mboard_sensor_names();
+        (ometa, data) = (pmt.to_python(pmt.car(pdu)), pmt.cdr(pdu))   
+
         d = {};  
-        for k in mbs:
-            v = uhd_source.get_mboard_sensor(k);
-            d[k] = v.value
-        d["gain"] = uhd_source.get_gain();
+        try:
+            # grab all mboard sensor data
+            uhd_source = eval("self.parent.%s"%(self.target));
+            mbs = uhd_source.get_mboard_sensor_names();
+            for k in mbs:
+                v = uhd_source.get_mboard_sensor(k);
+                d[k] = v.value
+            d["gain"] = uhd_source.get_gain();
+            d["gps_present"] = True
+        except AttributeError:
+            d["gps_present"] = False
+        
         #pprint.pprint(d);
-        meta = pmt.to_pmt(d);
-        self.message_port_pub(pmt.intern("pdus"), pmt.cons(meta, pmt.PMT_NIL));
+        ometa.update( d );
+        self.message_port_pub(pmt.intern("pdus"), pmt.cons(pmt.to_pmt(ometa), data));
 
