@@ -19,11 +19,9 @@ class cpdu_average_power(gr.sync_block):
     def handler(self, pdu):
         data = pmt.to_python(pmt.cdr(pdu))
         meta = pmt.car(pdu)
-
-        p = self.k + 10*numpy.log10(numpy.mean(numpy.real(data[0] * data[0])))
-#        p = self.k + numpy.mean(data[0])
-#        print data[0].shape,p
-
+        mag_sq = numpy.mean(numpy.real(data*numpy.conj(data)))
+        p = self.k + 10*numpy.log10(mag_sq)
+#        print "Power: %f"%(p)
         meta = pmt.dict_add(meta, pmt.intern("power"), pmt.from_float( p ) )
         self.message_port_pub( pmt.intern("cpdus"), pmt.cons( meta, pmt.cdr(pdu) ) );
 
