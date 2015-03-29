@@ -52,7 +52,7 @@ def convert_json_to_kml(f_in, f_out):
     # prepare to re-scale RSSI range to plotting elevations...
     rssis = map(lambda x: x["power"], rec)
     rssi_range = (min(rssis), max(rssis))
-    plot_el_range = (0,50.0)
+    plot_el_range = (0,25.0)
 
     # set up plots 
     el_key = ["power"];
